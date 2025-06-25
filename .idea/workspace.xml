@@ -5,6 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aad7edf7-a9d3-420a-848e-d6d28ffc3785" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BMA Assesment Bat.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bat Angle.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bat_Attack_Angles.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Readiness Screen.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Readiness Screen.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Readiness Database.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Readiness Database.ipynb" afterDir="false" />
     </list>
@@ -23,11 +28,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "J-Dog14"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/J-Dog14/Readiness-Screen.git",
+    "accountId": "ac89d842-2e82-4e80-9f6b-26c4e22c30ad"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2pRKzrGKeGdYxzNFEsWqWgIpKib" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -53,8 +72,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
-        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
+        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
       </set>
     </attachedChunks>
   </component>
@@ -111,6 +130,7 @@
       <workItem from="1748622986007" duration="316000" />
       <workItem from="1749569334916" duration="1491000" />
       <workItem from="1749652574252" duration="603000" />
+      <workItem from="1750857920688" duration="16065000" />
     </task>
     <servers />
   </component>
