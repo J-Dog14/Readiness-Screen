@@ -1,0 +1,6 @@
+	H:\Pitching\Data\Vennaro, Zach 10-25\Baseball Right-handed\Fastball RH 2.c3d	H:\Pitching\Data\Vennaro, Zach 10-25\Baseball Right-handed\Fastball RH 3.c3d	H:\Pitching\Data\Vennaro, Zach 10-25\Baseball Right-handed\Fastball RH 4.c3d	H:\Pitching\Data\Vennaro, Zach 10-25\Baseball Right-handed\Fastball RH 5.c3d	H:\Pitching\Data\Vennaro, Zach 10-25\Baseball Right-handed\Fastball RH 6.c3d
+	Foot Contact	Foot Contact	Foot Contact	Foot Contact	Foot Contact
+	EVENT_LABEL	EVENT_LABEL	EVENT_LABEL	EVENT_LABEL	EVENT_LABEL
+	ORIGINAL	ORIGINAL	ORIGINAL	ORIGINAL	ORIGINAL
+ITEM	X	X	X	X	X
+1	1.52333	1.59333	1.81333	1.47333	1.58333
