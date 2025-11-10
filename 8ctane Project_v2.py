@@ -5,7 +5,6 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 import numpy as np
 import xml.etree.ElementTree as ET
-from scipy import stats
 
 
 class PowerAnalyzer:
@@ -16,32 +15,44 @@ class PowerAnalyzer:
         self.cursor = None
 
     def select_folder(self):
-        """Use tkinter to select a folder containing power files"""
+        """Select folder for power analysis data."""
+        # Select player after going into data file in order to get session.xml
+        base_directory = r"H:\Pitching\Data"
         root = tk.Tk()
-        root.withdraw()  # Hide the main window
+        root.withdraw()
 
-        folder_path = filedialog.askdirectory(
-            title="Select folder containing power files"
-        )
+        session_folder_path = filedialog.askdirectory(initialdir=base_directory, title="Select a Folder")
+        if session_folder_path:
+            self.session_folder_path = session_folder_path
+            print(f"Selected folder: {session_folder_path}")
+        else:
+            print("Folder selection cancelled")
 
-        if folder_path:
-            self.folder_path = folder_path
-            self.db_path = os.path.join(folder_path, "Power_Analysis_2.db")
-            print(f"Selected folder: {self.folder_path}")
+        # Go to Karina folder to get data exports from pipeline
+        power_folder_path = r"D:\Karina\Data Exports"
+
+        if power_folder_path:
+            self.power_folder_path = power_folder_path
+            self.db_path = os.path.join(power_folder_path, "Power_Analysis_2.db")
+            print(f"Selected folder: {self.power_folder_path}")
             return True
         else:
-            messagebox.showwarning("No Selection", "No folder selected. Exiting.")
+            messagebox.showwarning("No folder selected. Exiting.")
             return False
 
     def connect_to_database(self):
-        """Connect to Power_Analysis_2.db and create normalized tables"""
-        if not self.folder_path:
+        """Connect to Power_Analysis_2.db and create normalized tables."""
+        if not self.power_folder_path:
             raise ValueError("No folder path set. Select folder before connecting to database.")
 
-        self.db_path = os.path.join(self.folder_path, "Power_Analysis_2.db")
-        self.conn = sqlite3.connect(self.db_path)
-        self.cursor = self.conn.cursor()
-        self.conn.execute("PRAGMA busy_timeout=5000;")
+        self.db_path = os.path.join(self.power_folder_path, "Power_Analysis_2.db")
+        try:
+            self.conn = sqlite3.connect(self.db_path)
+            self.cursor = self.conn.cursor()
+            self.conn.execute("PRAGMA busy_timeout=5000;")
+        except sqlite3.Error as e:
+            print(f"Database connection error: {e}")
+            raise
 
         # Create normalized database structure
         self.cursor.execute("""
@@ -110,11 +121,15 @@ class PowerAnalyzer:
             );
         """)
 
-        self.conn.commit()
-        print("Connected to Power_Analysis_2.db with normalized structure.")
+        try:
+            self.conn.commit()
+            print("Connected to Power_Analysis_2.db with normalized structure.")
+        except sqlite3.Error as e:
+            print(f"Database commit error: {e}")
+            raise
 
     def extract_filename(self, line):
-        """Extract filename from data line"""
+        """Extract filename from data line."""
         filename = os.path.splitext(os.path.basename(line))[0]
         return filename
 
@@ -135,10 +150,10 @@ class PowerAnalyzer:
         return []
 
     def load_power_txt(self, txt_path: str):
-        """Read power file and return 1-D numpy array of power values"""
+        """Read power file and return 1-D numpy array of power values."""
         vals = []
         with open(txt_path, "r", encoding="utf-8", errors="ignore") as f:
-            # find first numeric row like: "1\t0.00000"
+            # Find first numeric row like: "1\t0.00000"
             in_numeric = False
             for line in f:
                 line = line.strip()
@@ -150,7 +165,7 @@ class PowerAnalyzer:
                     parts = re.split(r'\s+', line)
                     if len(parts) >= 2:
                         try:
-                            vals.append(float(parts[1]))  # second column = power
+                            vals.append(float(parts[1]))  # Second column = power
                         except ValueError:
                             pass
         if not vals:
@@ -158,12 +173,12 @@ class PowerAnalyzer:
         return np.asarray(vals, dtype=float)
 
     def load_multi_column_file(self, filename):
-        # Load multicolumn metric file like powerAll and COMVelo2 and also single ones
-        path = os.path.join(self.folder_path, filename)
+        """Load multicolumn metric file like powerAll and COMVelo2 and also single ones."""
+        path = os.path.join(self.power_folder_path, filename)
 
         if not os.path.exists(path):
-            print(f"{filename} not found in {self.folder_path}")
-            return None, None, None
+            print(f"{filename} not found in {self.power_folder_path}")
+            return None
 
         try:
             data = []
@@ -194,10 +209,10 @@ class PowerAnalyzer:
             return None
 
     def generate_power_curves_from_powerMAG(self):
-        """ Generate individual powerCurve_pitchX.txt files from powerMAG.txt for each pitch. Handles inconsistent row lengths safely."""
-        mag_path = os.path.join(self.folder_path, "powerMAG.txt")
+        """Generate individual powerCurve_pitchX.txt files from powerMAG.txt for each pitch. Handles inconsistent row lengths safely."""
+        mag_path = os.path.join(self.power_folder_path, "powerMAG.txt")
         if not os.path.exists(mag_path):
-            print(f"powerMAG.txt not found in {self.folder_path}")
+            print(f"powerMAG.txt not found in {self.power_folder_path}")
             return []
 
         try:
@@ -230,14 +245,14 @@ class PowerAnalyzer:
                 print("powerMAG.txt does not contain multiple pitch columns.")
                 return []
 
-            num_pitches = data.shape[1] - 1  # first column = item/time
+            num_pitches = data.shape[1] - 1  # First column = item/time
             print(f"Detected {num_pitches} pitches in powerMAG.txt")
 
             curve_paths = []
 
             for pitch_idx in range(num_pitches):
-                power_values = data[:, pitch_idx + 1]  # skip first column
-                curve_path = os.path.join(self.folder_path, f"powerCurve_pitch{pitch_idx + 1}.txt")
+                power_values = data[:, pitch_idx + 1]  # Skip first column
+                curve_path = os.path.join(self.power_folder_path, f"powerCurve_pitch{pitch_idx + 1}.txt")
                 with open(curve_path, "w") as out:
                     for i, val in enumerate(power_values, start=1):
                         if np.isnan(val):
@@ -253,7 +268,7 @@ class PowerAnalyzer:
             return []
 
     def analyze_power_curve(self, power, fs_hz: float = 1000.0):
-        """Base metrics for power curve analysis"""
+        """Base metrics for power curve analysis."""
         p = np.asarray(power, dtype=float)
         n = p.size
         t = np.arange(n) / fs_hz
@@ -273,19 +288,19 @@ class PowerAnalyzer:
         }
 
     def compute_metrics_per_axis(self, data):
-        """Compute metrics (peak, time_to_peak, auc) for each axis of a pitch"""
+        """Compute metrics (peak, time_to_peak, auc) for each axis of a pitch."""
         data = np.asarray(data)
         metrics = {}
 
         if data.ndim == 1:
-            # single-column
+            # Single-column
             metrics['X'] = {
                 'peak': np.max(data),
                 'time_to_peak': np.argmax(data) / 1000,
                 'auc': np.trapezoid(data)
             }
         else:
-            # multi-column
+            # Multi-column
             for i, axis in enumerate(['X', 'Y', 'Z']):
                 col = data[:, i]
                 metrics[axis] = {
@@ -296,7 +311,7 @@ class PowerAnalyzer:
         return metrics
 
     def process_power_files_for_pitch(self, pitch_idx):
-        """Process power files for a specific pitch from multi-column files"""
+        """Process power files for a specific pitch from multi-column files."""
         power_files = {
             "pelvis": "pelvisPower.txt",
             "shoulder": "shoulderPower.txt",
@@ -307,10 +322,10 @@ class PowerAnalyzer:
         power_metrics = {}
 
         for file_type, filename in power_files.items():
-            file_path = os.path.join(self.folder_path, filename)
+            file_path = os.path.join(self.power_folder_path, filename)
 
             if not os.path.exists(file_path):
-                print(f"{filename} not found in {self.folder_path}")
+                print(f"{filename} not found in {self.power_folder_path}")
                 power_metrics[file_type] = {
                     "peak_power": None,
                     "time_to_peak": None,
@@ -363,21 +378,23 @@ class PowerAnalyzer:
         return power_metrics
 
     def run_analysis(self):
-        """Run full power analysis for all pitches in the folder"""
+        """Run full power analysis for all pitches in the folder."""
         print("Starting Power Analysis v2...")
 
-        # select folder
+        # Select folder
         if not self.select_folder():
             return False
 
-        # connect to database
+        # Connect to database
         self.connect_to_database()
 
         # Parse XML for demographics and measurement info
         xml_file_path = ''
-        for root_dir, _, files in os.walk(self.folder_path):
+        for root_dir, _, files in os.walk(self.session_folder_path):
             for file in files:
-                if file.lower() == 'session.xml':
+                if (file.lower().startswith('session') and 
+                    not file.lower().startswith('session_data') and 
+                    file.lower().endswith('.xml')):
                     xml_file_path = os.path.join(root_dir, file)
                     break
             if xml_file_path:
@@ -465,7 +482,7 @@ class PowerAnalyzer:
         for i, (filename, comments, creation_date) in enumerate(measurement_info):
             print(f"Measurement {i+1}: {filename}")
 
-        # load all multi-column files
+        # Load all multi-column files
         powerAll_data = self.load_multi_column_file("powerAll.txt")
         COMVelo2_data = self.load_multi_column_file("COMVelo2.txt")
         powerMAG_data = self.load_multi_column_file("powerMAG.txt")
@@ -473,19 +490,19 @@ class PowerAnalyzer:
         release_data = self.load_multi_column_file("release.txt")
         releaseAfter_data = self.load_multi_column_file("releaseAfter.txt")
 
-        if powerAll_data is None:
-            print("Failed to load required files")
+        if powerAll_data is None or len(powerAll_data) == 0:
+            print("Failed to load required files or powerAll_data is empty")
             return False
 
-        # determine number of pitches (3 columns per pitch + 1 item column)
+        # Determine number of pitches (3 columns per pitch + 1 item column)
         num_columns = len(powerAll_data[0])
         num_pitches = (num_columns - 1) // 3
         print(f"Detected {num_pitches} pitches in powerAll.txt")
 
-        # generate power curves and compute metrics
+        # Generate power curves and compute metrics
         curve_paths = self.generate_power_curves_from_powerMAG()
 
-        # loop over each pitch
+        # Loop over each pitch
         for pitch_idx in range(num_pitches):
             pitch_number = pitch_idx + 1
 
@@ -593,7 +610,7 @@ class PowerAnalyzer:
 
 
 def main():
-    """Main entry point"""
+    """Main entry point."""
     analyzer = PowerAnalyzer()
     success = analyzer.run_analysis()
 

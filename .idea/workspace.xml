@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aad7edf7-a9d3-420a-848e-d6d28ffc3785" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Readiness Screen.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Readiness Screen.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PowerAnalysis.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/8ctane Project_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/8ctane Project_v2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Readiness Database.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Readiness Database.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +20,17 @@
       <list>
         <option value="Jupyter Notebook" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -50,6 +61,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Python.8ctane Project_v2.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/q/PycharmProjects/Readiness Screen&quot;,
@@ -58,6 +70,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.notebooks.jupyter.connections.configuration.JupyterServerConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -130,10 +143,40 @@
       <workItem from="1750857920688" duration="16065000" />
       <workItem from="1750880293991" duration="62000" />
       <workItem from="1751289928341" duration="8932000" />
+      <workItem from="1751378386688" duration="25380000" />
+      <workItem from="1755114131174" duration="751000" />
+      <workItem from="1755176784059" duration="1351000" />
+      <workItem from="1757435905172" duration="558000" />
+      <workItem from="1757453588266" duration="2178000" />
+      <workItem from="1757520974624" duration="40000" />
+      <workItem from="1757960572609" duration="490000" />
+      <workItem from="1757961134078" duration="619000" />
+      <workItem from="1758224072809" duration="847000" />
+      <workItem from="1758297782530" duration="10000" />
+      <workItem from="1758303412125" duration="89000" />
+      <workItem from="1758559178443" duration="729000" />
+      <workItem from="1758580853705" duration="23000" />
+      <workItem from="1758817630216" duration="1302000" />
+      <workItem from="1759251499452" duration="1341000" />
+      <workItem from="1759419515095" duration="1858000" />
+      <workItem from="1759442470841" duration="624000" />
+      <workItem from="1759770376278" duration="693000" />
+      <workItem from="1761067581903" duration="1278000" />
+      <workItem from="1761143960360" duration="3374000" />
+      <workItem from="1761167076082" duration="13000" />
+      <workItem from="1761321572926" duration="1555000" />
+      <workItem from="1761327005851" duration="51000" />
+      <workItem from="1761754267705" duration="52000" />
+      <workItem from="1761754330819" duration="37000" />
+      <workItem from="1761754378842" duration="88000" />
+      <workItem from="1762544367711" duration="68000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Readiness_Screen$8ctane_Project_v2.coverage" NAME="8ctane Project_v2 Coverage Results" MODIFIED="1761146844004" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
